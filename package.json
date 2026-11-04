@@ -54,11 +54,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ruiyuxuanyan/dsh-session-share.git"
+    "url": "git+https://github.com/ruiyuxuanyan/dsh-transcript-export.git"
   },
-  "homepage": "https://github.com/ruiyuxuanyan/dsh-session-share#readme",
+  "homepage": "https://github.com/ruiyuxuanyan/dsh-transcript-export#readme",
   "bugs": {
-    "url": "https://github.com/ruiyuxuanyan/dsh-session-share/issues"
+    "url": "https://github.com/ruiyuxuanyan/dsh-transcript-export/issues"
   },
   "author": "ruiyuxuanyan"
 }

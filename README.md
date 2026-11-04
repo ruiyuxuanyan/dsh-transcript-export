@@ -1,8 +1,6 @@
 # dsh-transcript-export
 
-> npm 包名 `dsh-transcript-export`；GitHub 仓库沿用 `ruiyuxuanyan/dsh-session-share`。
-
-[![test](https://github.com/ruiyuxuanyan/dsh-session-share/actions/workflows/test.yml/badge.svg)](https://github.com/ruiyuxuanyan/dsh-session-share/actions/workflows/test.yml)
+[![test](https://github.com/ruiyuxuanyan/dsh-transcript-export/actions/workflows/test.yml/badge.svg)](https://github.com/ruiyuxuanyan/dsh-transcript-export/actions/workflows/test.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![dsh plugin](https://img.shields.io/badge/DeepSeek%20Harness-plugin-4c6ef5)](https://github.com/deepseek-ai/deepseek-harness)
 
@@ -44,13 +42,13 @@ DeepSeek Harness 的**会话导出 / 分享**插件：在任意一条助手回�
 
 ```bash
 # 从本地目录装（开发时最方便）
-dsh plugin --profile <profile> add /absolute/path/to/dsh-session-share
+dsh plugin --profile <profile> add /absolute/path/to/dsh-transcript-export
 
 # 从 npm 装（发布之后）
 dsh plugin --profile <profile> add dsh-transcript-export
 
 # 直接从 GitHub 装（钉到某个提交，npm 上还没有时用）
-dsh plugin --profile <profile> add 'git+https://github.com/ruiyuxuanyan/dsh-session-share.git#<sha>'
+dsh plugin --profile <profile> add 'git+https://github.com/ruiyuxuanyan/dsh-transcript-export.git#<sha>'
 ```
 
 在 Harness 图形界面里也可以用插件管理器安装：`install_bundle` + 上面的 spec。安装后**刷新页面**，助手回复下方那排图标（复制、分支旁边）会多出一个下载图标。
@@ -132,7 +130,7 @@ npm run index   # 生成 market/index.json（需要 --repo 指向最终仓库地
 ## 发布
 
 ```bash
-git remote add origin https://github.com/ruiyuxuanyan/dsh-session-share.git
+git remote add origin https://github.com/ruiyuxuanyan/dsh-transcript-export.git
 git branch -M main && git push -u origin main
 ```
 
@@ -140,7 +138,7 @@ git branch -M main && git push -u origin main
 `README.zh.md` 的 **Sessions & Messages** 分类里各加一行（英文行、中文行，格式与相邻条目一致）：
 
 ```markdown
-- [ruiyuxuanyan/dsh-session-share](https://github.com/ruiyuxuanyan/dsh-session-share) - Export any conversation as clean Markdown, one self-contained HTML file, or JSON from the assistant action row, with turn ranges, Markdown-rendered prose, one folded command appendix per round, secret redaction and a searchable export library.
+- [ruiyuxuanyan/dsh-transcript-export](https://github.com/ruiyuxuanyan/dsh-transcript-export) - Export any conversation as clean Markdown, one self-contained HTML file, or JSON from the assistant action row, with turn ranges, Markdown-rendered prose, one folded command appendix per round, secret redaction and a searchable export library.
 ```
 
 那份列表会被合成为 format 1 索引（`https://cdn.jsdelivr.net/npm/dsh-plugin-catalog/index.json`），

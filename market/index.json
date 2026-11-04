@@ -30,9 +30,9 @@
         "zh": "在任意一条助手回复上导出这段对话：干净的 Markdown、单文件 HTML 或 JSON，可回退 N 轮，正文按 Markdown 渲染，命令与工具调用整轮折叠，密钥自动脱敏。"
       },
       "author": "ruiyuxuanyan",
-      "homepage": "https://github.com/ruiyuxuanyan/dsh-session-share#readme",
+      "homepage": "https://github.com/ruiyuxuanyan/dsh-transcript-export#readme",
       "repository": {
-        "url": "https://github.com/ruiyuxuanyan/dsh-session-share"
+        "url": "https://github.com/ruiyuxuanyan/dsh-transcript-export"
       },
       "metadata": {
         "category": "export",
@@ -49,11 +49,11 @@
       "versions": [
         {
           "version": "0.2.0",
-          "publishTimestamp": 1793770086,
+          "publishTimestamp": 1793770096,
           "source": {
             "type": "git",
-            "url": "https://github.com/ruiyuxuanyan/dsh-session-share",
-            "commit": "5f147f157b47dd10a91f09eb185f39a7796be105"
+            "url": "https://github.com/ruiyuxuanyan/dsh-transcript-export",
+            "commit": "bb8d5c4ba09ed7cddb256928b85e9d60e0bc2964"
           }
         }
       ]
