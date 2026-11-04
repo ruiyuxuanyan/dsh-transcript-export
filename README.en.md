@@ -35,7 +35,7 @@ That gap is what this plugin fills. One click on the reply you are reading, pick
 
 The range is either the whole conversation or "last N rounds" (a slider from 1 to the total). Content flags cover tool calls, tool results, reasoning and timestamps. Redaction knows OpenAI, Anthropic, GitHub, GitLab, AWS, Slack, Google and Stripe keys, plus JWTs, Bearer/Basic headers, cookies, `password=` / `api_key=` assignments, credentialed DSNs and PEM private keys.
 
-Nothing leaves the machine: the Host half renders and writes locally, the browser half only talks to it over same-origin `POST /dsh-session-share/*`, and then hands the bytes to a Blob download. The export library lives under `$DSH_HOME/exports` (default `~/.dsh/exports`), newest first, filterable, openable and deletable in place.
+Nothing leaves the machine: the Host half renders and writes locally, the browser half only talks to it over same-origin `POST /dsh-transcript-export/*`, and then hands the bytes to a Blob download. The export library lives under `$DSH_HOME/exports` (default `~/.dsh/exports`), newest first, filterable, openable and deletable in place.
 
 ## Install
 
@@ -93,7 +93,7 @@ Override in the profile's `cordis.patch.yml`. `config` replaces the whole block,
 
 ```
 browser half (lib/client.js)                 host half (lib/index.js)
-  conversation.chat.assistant-actions          webServer prefix route /dsh-session-share
+  conversation.chat.assistant-actions          webServer prefix route /dsh-transcript-export
     └ Export button → dialog                      ├ prepare   summary + redaction count
   conversation.session.header.actions             ├ export    render, optionally save
     └ Export library                             ├ list / read / delete
@@ -105,7 +105,7 @@ browser half (lib/client.js)                 host half (lib/index.js)
 ```
 
 - `lib/core.js` — the document model, three renderers, redaction and highlighting. **No imports, synchronous, no side effects**, so the Host, the browser and `node --test` all run the same code.
-- `lib/index.js` — reads events through `sessionQuery.readSession(sessionId)` and normalizes them, mounts the `/dsh-session-share` prefix route on `webServer` (same-origin + loopback fence, 4 MB body cap, containment checks against directory traversal), and optionally registers `export_session`.
+- `lib/index.js` — reads events through `sessionQuery.readSession(sessionId)` and normalizes them, mounts the `/dsh-transcript-export` prefix route on `webServer` (same-origin + loopback fence, 4 MB body cap, containment checks against directory traversal), and optionally registers `export_session`.
 - `lib/client.js` — two slot entries; the dialog and the library are React built by hand from `react`, `react/jsx-runtime` and `@deepseek-ai/dsh-client-ui-primitives` (no JSX, no build step).
 
 ## Security, taken seriously

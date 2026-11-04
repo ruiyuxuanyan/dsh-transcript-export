@@ -93,7 +93,7 @@ async function call(route, method, body, headers = { host: '127.0.0.1:56772', or
   const payload = body === undefined ? '' : JSON.stringify(body)
   const req = {
     method: 'POST',
-    url: `/dsh-session-share/${method}`,
+    url: `/dsh-transcript-export/${method}`,
     headers,
     async *[Symbol.asyncIterator]() {
       if (payload !== '') yield Buffer.from(payload, 'utf8')

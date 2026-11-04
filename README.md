@@ -35,7 +35,7 @@
 
 范围可以选整段对话，也可以选"最近 N 轮"（滑杆 1…总轮数）。内容开关管工具调用、工具结果、思考过程、时间戳。脱敏认得 OpenAI、Anthropic、GitHub、GitLab、AWS、Slack、Google、Stripe 的 key，也认 JWT、Bearer/Basic、Cookie、`password=` / `api_key=` 这类赋值、带账号密码的 DSN 和 PEM 私钥。
 
-导出全程**不联网**：Host 那一半在本机渲染、写盘，浏览器那一半只通过同源 `POST /dsh-session-share/*` 取内容，然后 Blob 下载或存进导出库。导出库在 `$DSH_HOME/exports`（默认 `~/.dsh/exports`），按时间排着，能筛、能当场打开、能删。
+导出全程**不联网**：Host 那一半在本机渲染、写盘，浏览器那一半只通过同源 `POST /dsh-transcript-export/*` 取内容，然后 Blob 下载或存进导出库。导出库在 `$DSH_HOME/exports`（默认 `~/.dsh/exports`），按时间排着，能筛、能当场打开、能删。
 
 ## 安装
 
@@ -93,7 +93,7 @@ dsh plugin --profile <profile> add 'git+https://github.com/ruiyuxuanyan/dsh-tran
 
 ```
 浏览器半片 (lib/client.js)                   Host 半片 (lib/index.js)
-  conversation.chat.assistant-actions          webServer 前缀路由 /dsh-session-share
+  conversation.chat.assistant-actions          webServer 前缀路由 /dsh-transcript-export
     └ 导出按钮 → 弹窗                              ├ prepare  会话概要 + 脱敏计数
   conversation.session.header.actions            ├ export   渲染并可选落盘
     └ 导出库按钮                                 ├ list / read / delete
@@ -105,7 +105,7 @@ dsh plugin --profile <profile> add 'git+https://github.com/ruiyuxuanyan/dsh-tran
 ```
 
 - `lib/core.js` —— 文档模型、三个渲染器、脱敏、高亮。**零依赖、同步、没有副作用**，Host 进程中、浏览器里和 `node --test` 下跑的是同一份代码。
-- `lib/index.js` —— 读 `sessionQuery.readSession(sessionId)` 的会话事件，整理成文档；在 `webServer` 上挂 `/dsh-session-share` 前缀路由（同源 + 回环校验、4 MB 请求上限、路径包含性校验防目录穿越）；可选注册 `export_session` 工具。
+- `lib/index.js` —— 读 `sessionQuery.readSession(sessionId)` 的会话事件，整理成文档；在 `webServer` 上挂 `/dsh-transcript-export` 前缀路由（同源 + 回环校验、4 MB 请求上限、路径包含性校验防目录穿越）；可选注册 `export_session` 工具。
 - `lib/client.js` —— 两个 Slot 入口，弹窗和导出库都是 React 写的（只用 `react` / `react/jsx-runtime` / `@deepseek-ai/dsh-client-ui-primitives` 三个模块，没有 JSX，也没有构建步骤）。
 
 ## 安全这件事，我们是当真的

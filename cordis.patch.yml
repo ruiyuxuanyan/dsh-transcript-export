@@ -1,5 +1,5 @@
 # dsh-transcript-export bundle patch: one host row (the exporter service, the
-# /dsh-session-share RPC route and the optional export_session tool) plus the
+# /dsh-transcript-export RPC route and the optional export_session tool) plus the
 # same package's browser half, which the Loader mounts separately.
 - insert:
     - id: session-share
