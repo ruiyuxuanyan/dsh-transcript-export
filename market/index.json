@@ -49,11 +49,11 @@
       "versions": [
         {
           "version": "0.2.0",
-          "publishTimestamp": 1793769285,
+          "publishTimestamp": 1793770086,
           "source": {
             "type": "git",
             "url": "https://github.com/ruiyuxuanyan/dsh-session-share",
-            "commit": "fd6a523bb2aa44499621c17234dc07cf3e411820"
+            "commit": "5f147f157b47dd10a91f09eb185f39a7796be105"
           }
         }
       ]
