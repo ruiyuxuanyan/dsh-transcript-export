@@ -291,6 +291,7 @@ test('small helpers behave', () => {
   assert.equal(byteLength('中'), 3)
   assert.equal(escapeHtml('<a & "b">'), '&lt;a &amp; &quot;b&quot;&gt;')
   assert.equal(slugify('修一个登录 bug'), '修一个登录-bug')
+  assert.equal(slugify('自动模拟ETF交易面板'), '自动模拟ETF交易面板')
   assert.equal(slugify('!!!'), 'conversation')
   assert.ok(looksLikeTextPath('a/b.md'))
   assert.ok(!looksLikeTextPath('a/b.png'))
