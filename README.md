@@ -37,9 +37,24 @@ DeepSeek Harness 的**会话导出 / 分享**插件：在任意一条助手回�
 ```bash
 # 从本地目录装（开发时最方便）
 dsh plugin --profile <profile> add /absolute/path/to/dsh-session-share
+
+# 从 npm 装（发布之后）
+dsh plugin --profile <profile> add dsh-session-share
+
+# 直接从 GitHub 装（钉到某个提交，npm 上还没有时用）
+dsh plugin --profile <profile> add 'git+https://github.com/<owner>/dsh-session-share.git#<sha>'
 ```
 
-在 Harness 图形界面里也可以用插件管理器安装：`install_bundle` + 上面的绝对路径。安装后**刷新页面**，助手回复下方那排图标（复制、分支旁边）会多出一个下载图标。
+在 Harness 图形界面里也可以用插件管理器安装：`install_bundle` + 上面的 spec。安装后**刷新页面**，助手回复下方那排图标（复制、分支旁边）会多出一个下载图标。
+
+### 通过插件市场装
+
+这个仓库自带一份 **format 1 插件市场索引**（`market/index.json`，由 `npm run index` 生成）。
+在 Harness 里打开 **设置 → 插件 → 发现 → 索引源**，把它发布的 URL 加进去，就能像别的插件一样搜索和安装。
+
+市场里的插件列表来自精选列表 [awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin)：
+想让插件出现在默认市场里，去那边提 PR 加一行；站点和 `dsh-market` 会自动收录，通常一天内生效。
+`market/index.json` 是让用户**不依赖任何目录**也能添加你的源的那种做法。
 
 ## 使用
 
@@ -92,17 +107,36 @@ Agent 会调用 `export_session`，文件落在 `$DSH_HOME/exports`，并把路�
 
 - 路由只接受 **同源 + 回环** 的 `POST`：`Host` 头必须是 `127.0.0.1` / `localhost` / `[::1]`，带 `Origin` 时必须与 `Host` 一致；其它来源一律 403。
 - 导出库的 `read` / `delete` 只接受导出目录**内部**的路径，`../` 之类直接拒绝。
-- HTML 输出中所有消息文本、标题、工具名都经过转义；不解析、不执行对话里的任何标记。
+- HTML 输出**先转义、后套结构**：Markdown 只用来生成渲染器自己造的标签，对话里的任何 HTML 标记都只会以文字出现（表格单元格、代码块、链接同理；链接只接受 `http(s)://`）。
 - 脱敏默认开启，替换成 `[REDACTED]`；关掉它需要你自己明确勾选。
 
 ## 开发
 
 ```bash
-node --test test/core.test.mjs test/host.test.mjs
+npm test        # node --test test/core.test.mjs test/host.test.mjs
+npm run index   # 生成 market/index.json（需要 --repo 指向最终仓库地址）
 ```
 
-- `test/core.test.mjs` — 规范化、脱敏、三种渲染器、XSS 转义、围栏嵌套、helpers。
+- `test/core.test.mjs` — 规范化、脱敏、三种渲染器、XSS 转义、Markdown 结构、围栏嵌套、helpers。
 - `test/host.test.mjs` — 用一个迷你 Cordis 上下文驱动真实路由：导出 / 存盘 / 列出 / 读回 / 删除，以及目录穿越、跨源、未知 action 的拒绝。
+- `.github/workflows/test.yml` — Node 20 / 22 上跑同一套测试，零依赖安装。
+
+## 发布
+
+```bash
+git remote add origin https://github.com/<owner>/dsh-session-share.git
+git branch -M main && git push -u origin main
+```
+
+想被默认市场收录，在 [awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin) 的 `README.md` +
+`README.zh.md` 的 **Sessions & Messages** 分类里各加一行（英文行、中文行，格式与相邻条目一致）：
+
+```markdown
+- [<owner>/dsh-session-share](https://github.com/<owner>/dsh-session-share) - Export any conversation as clean Markdown, one self-contained HTML file, or JSON from the assistant action row, with turn ranges, Markdown-rendered prose, one folded command appendix per round, secret redaction and a searchable export library.
+```
+
+那份列表会被合成为 format 1 索引（`https://cdn.jsdelivr.net/npm/dsh-plugin-catalog/index.json`），
+`dsh-market` 与内置发现页读的是同一份文档，所以合并即上架。
 
 ## 已知限制
 

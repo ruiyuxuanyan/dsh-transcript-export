@@ -1,6 +1,6 @@
 {
   "name": "dsh-session-share",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "DeepSeek Harness 会话导出与分享插件:在每条助手回复的操作栏里一键把对话导出成干净的 Markdown / 单文件 HTML / JSON,支持从所选消息向前回溯 N 轮、工具调用折叠、密钥脱敏、目录与代码高亮,不改动原始会话日志。Conversation export & share for DeepSeek Harness: export transcripts as clean Markdown, self-contained HTML, or JSON from any assistant message, with turn ranges, tool-call folding, secret redaction and an optional searchable library.",
   "type": "module",
   "main": "lib/index.js",
@@ -45,6 +45,10 @@
     "conversation"
   ],
   "license": "MIT",
+  "scripts": {
+    "test": "node --test test/core.test.mjs test/host.test.mjs",
+    "index": "node scripts/make-index.mjs"
+  },
   "engines": {
     "node": ">=20"
   }

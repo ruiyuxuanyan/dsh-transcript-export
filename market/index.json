@@ -1,0 +1,60 @@
+{
+  "format": 1,
+  "title": {
+    "en": "DSH Session Share",
+    "zh": "DSH 会话导出"
+  },
+  "description": {
+    "en": "Community plugins maintained alongside dsh-session-share.",
+    "zh": "与 dsh-session-share 一起维护的插件索引。"
+  },
+  "metadata": {
+    "categories": {
+      "export": {
+        "title": {
+          "en": "Export & Share",
+          "zh": "导出与分享"
+        }
+      }
+    }
+  },
+  "plugins": [
+    {
+      "name": "dsh-session-share",
+      "title": {
+        "en": "Session Share",
+        "zh": "会话导出 / 分享"
+      },
+      "description": {
+        "en": "Export a conversation from any assistant reply as clean Markdown, one self-contained HTML file, or JSON: pick the last N turns, get tool calls folded into one line per round, a table-of-contents HTML with printing rules, Markdown-rendered prose and secret redaction, all read from the session log without touching it.",
+        "zh": "在任意一条助手回复上导出这段对话：干净的 Markdown、单文件 HTML 或 JSON，可回退 N 轮，正文按 Markdown 渲染，命令与工具调用整轮折叠，密钥自动脱敏。"
+      },
+      "repository": {
+        "url": "https://github.com/example/dsh-session-share"
+      },
+      "metadata": {
+        "category": "export",
+        "keywords": [
+          "export",
+          "markdown",
+          "html",
+          "share",
+          "transcript",
+          "conversation",
+          "redact"
+        ]
+      },
+      "versions": [
+        {
+          "version": "0.2.0",
+          "publishTimestamp": 1793715471,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/example/dsh-session-share",
+            "commit": "4e4ec3a1295fd74a3fe6f16fc557522bc5552bcc"
+          }
+        }
+      ]
+    }
+  ]
+}
