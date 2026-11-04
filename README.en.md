@@ -1,5 +1,11 @@
 # dsh-session-share
 
+[![test](https://github.com/ruiyuxuanyan/dsh-session-share/actions/workflows/test.yml/badge.svg)](https://github.com/ruiyuxuanyan/dsh-session-share/actions/workflows/test.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![dsh plugin](https://img.shields.io/badge/DeepSeek%20Harness-plugin-4c6ef5)](https://github.com/deepseek-ai/deepseek-harness)
+
+[中文](README.md) · **English**
+
 A **conversation export / share** plugin for DeepSeek Harness: turn any reply you are reading into a clean **Markdown**, **single-file HTML**, or **JSON** document.
 
 <p align="center">

@@ -1,5 +1,11 @@
 # dsh-session-share
 
+[![test](https://github.com/ruiyuxuanyan/dsh-session-share/actions/workflows/test.yml/badge.svg)](https://github.com/ruiyuxuanyan/dsh-session-share/actions/workflows/test.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![dsh plugin](https://img.shields.io/badge/DeepSeek%20Harness-plugin-4c6ef5)](https://github.com/deepseek-ai/deepseek-harness)
+
+**中文** · [English](README.en.md)
+
 DeepSeek Harness 的**会话导出 / 分享**插件：在任意一条助手回复的操作栏里，一键把这段对话导出成干净的 **Markdown**、**单文件 HTML** 或 **JSON**。
 
 <p align="center">
