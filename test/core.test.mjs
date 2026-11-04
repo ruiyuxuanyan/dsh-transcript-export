@@ -191,6 +191,43 @@ test('renderMarkdown produces a shareable document', () => {
   assert.ok(renderMarkdown(nested).includes('```js'))
 })
 
+test('tool fences are well formed inside a list item', () => {
+  const { doc } = normalizeTranscript({ sessionId: 's1', events: sampleEvents() }, { redact: false })
+  const md = renderMarkdown(doc)
+  // Every fence line is either an opening fence (```lang) or a bare closing
+  // fence; a closing fence that carries a language tag nests a broken block.
+  const fenceLines = md.split('\n').filter((line) => line.trim().startsWith('```'))
+  const closings = fenceLines.filter((line) => /^\s*`{3,}\s*$/.test(line))
+  const openings = fenceLines.filter((line) => !/^\s*`{3,}\s*$/.test(line))
+  assert.equal(closings.length, openings.length, `unbalanced fences:\n${fenceLines.join('\n')}`)
+  assert.ok(!/```\w+```/.test(md.replace(/\n/g, '')), 'no fused open/close fence')
+  assert.ok(!/^ {2}```jsonjson/m.test(md))
+  // A tool output whose own text contains a fence must not close the block.
+  const tricky = normalizeTranscript({
+    sessionId: 'x',
+    events: [
+      {
+        type: 'assistant/message',
+        seq: 0,
+        time: 1,
+        data: {
+          turn: 0,
+          message: {
+            content: [
+              { type: 'tool-call', callId: 'c1', name: 'read', arguments: '{"path":"a.md"}' },
+            ],
+          },
+        },
+      },
+      { type: 'tool/result', seq: 1, time: 2, data: { toolCallId: 'c1', content: '```js\ncode\n```' } },
+      { type: 'assistant/message', seq: 2, time: 3, data: { turn: 0, message: { content: [{ type: 'text', text: 'after' }] } } },
+    ],
+  }, { redact: false }).doc
+  const out = renderMarkdown(tricky)
+  const after = out.slice(out.indexOf('after'))
+  assert.ok(after.length > 0, 'the reply after a fenced tool result survives')
+})
+
 test('renderHtml is self-contained and escapes hostile text', () => {
   const { doc } = normalizeTranscript({ sessionId: 's1', events: sampleEvents() }, { redact: false, now: 5000 })
   const html = renderHtml(doc)
