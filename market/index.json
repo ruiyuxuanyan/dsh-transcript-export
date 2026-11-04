@@ -20,7 +20,7 @@
   },
   "plugins": [
     {
-      "name": "dsh-session-share",
+      "name": "dsh-transcript-export",
       "title": {
         "en": "Session Share",
         "zh": "会话导出 / 分享"
@@ -49,11 +49,11 @@
       "versions": [
         {
           "version": "0.2.0",
-          "publishTimestamp": 1793768758,
+          "publishTimestamp": 1793769285,
           "source": {
             "type": "git",
             "url": "https://github.com/ruiyuxuanyan/dsh-session-share",
-            "commit": "4b667e1a696555ac30614112d1bc5a7debe00fa9"
+            "commit": "fd6a523bb2aa44499621c17234dc07cf3e411820"
           }
         }
       ]

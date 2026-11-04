@@ -1,4 +1,6 @@
-# dsh-session-share
+# dsh-transcript-export
+
+> The npm package is `dsh-transcript-export`; the GitHub repository keeps the name `ruiyuxuanyan/dsh-session-share`.
 
 [![test](https://github.com/ruiyuxuanyan/dsh-session-share/actions/workflows/test.yml/badge.svg)](https://github.com/ruiyuxuanyan/dsh-session-share/actions/workflows/test.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -44,7 +46,7 @@ Nothing leaves the machine: the Host half renders and writes locally, and the br
 dsh plugin --profile <profile> add /absolute/path/to/dsh-session-share
 
 # from npm (once published)
-dsh plugin --profile <profile> add dsh-session-share
+dsh plugin --profile <profile> add dsh-transcript-export
 
 # straight from GitHub, pinned to a commit (before npm has it)
 dsh plugin --profile <profile> add 'git+https://github.com/ruiyuxuanyan/dsh-session-share.git#<sha>'

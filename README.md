@@ -1,4 +1,6 @@
-# dsh-session-share
+# dsh-transcript-export
+
+> npm 包名 `dsh-transcript-export`；GitHub 仓库沿用 `ruiyuxuanyan/dsh-session-share`。
 
 [![test](https://github.com/ruiyuxuanyan/dsh-session-share/actions/workflows/test.yml/badge.svg)](https://github.com/ruiyuxuanyan/dsh-session-share/actions/workflows/test.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -45,7 +47,7 @@ DeepSeek Harness 的**会话导出 / 分享**插件：在任意一条助手回�
 dsh plugin --profile <profile> add /absolute/path/to/dsh-session-share
 
 # 从 npm 装（发布之后）
-dsh plugin --profile <profile> add dsh-session-share
+dsh plugin --profile <profile> add dsh-transcript-export
 
 # 直接从 GitHub 装（钉到某个提交，npm 上还没有时用）
 dsh plugin --profile <profile> add 'git+https://github.com/ruiyuxuanyan/dsh-session-share.git#<sha>'

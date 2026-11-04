@@ -4,6 +4,8 @@ import assert from 'node:assert/strict'
 
 import {
   FORMATS,
+  PLUGIN_NAME,
+  PLUGIN_VERSION,
   SCHEMA_VERSION,
   byteLength,
   countRounds,
@@ -348,7 +350,8 @@ test('renderJson round-trips and records options', () => {
   const json = renderJson(doc, { redactions, toolResults: false })
   const parsed = JSON.parse(json)
   assert.equal(parsed.schemaVersion, SCHEMA_VERSION)
-  assert.equal(parsed.generator.name, 'dsh-session-share')
+  assert.equal(parsed.generator.name, PLUGIN_NAME)
+  assert.equal(parsed.generator.version, PLUGIN_VERSION)
   assert.equal(parsed.redactions, redactions)
   assert.equal(parsed.rounds, 2)
   assert.equal(parsed.options.toolResults, false)
