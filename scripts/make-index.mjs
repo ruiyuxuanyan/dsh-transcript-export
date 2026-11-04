@@ -8,7 +8,7 @@
  * install with one click. Run it before a release so the pinned commit matches
  * the tag.
  *
- *   node scripts/make-index.mjs --repo https://github.com/<you>/dsh-session-share
+ *   node scripts/make-index.mjs --repo https://github.com/<you>/dsh-transcript-export
  *
  * Format 1 is defined by `@deepseek-ai/dsh-plugin-market-index`; the fields
  * below are the ones that validator accepts, and the last step re-checks our
@@ -47,7 +47,7 @@ if (!/^[0-9a-f]{40}$/u.test(commit)) {
 }
 
 if (repository.includes('/example/')) {
-  console.warn('⚠ 仓库地址还是占位符：发布前用 --repo https://github.com/<你>/dsh-session-share 重新生成一次。')
+  console.warn('⚠ 仓库地址还是占位符：发布前用 --repo https://github.com/<你>/dsh-transcript-export 重新生成一次。')
 }
 
 /** Unix seconds; the market sorts and displays this. */

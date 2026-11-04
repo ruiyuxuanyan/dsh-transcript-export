@@ -49,11 +49,11 @@
       "versions": [
         {
           "version": "0.2.0",
-          "publishTimestamp": 1793770933,
+          "publishTimestamp": 1793771029,
           "source": {
             "type": "git",
             "url": "https://github.com/ruiyuxuanyan/dsh-transcript-export",
-            "commit": "faccfc7aaca85b290c560a17545ba60c8b3202ae"
+            "commit": "f1af667b7a0a63d420e197a24536a0d8e0dba218"
           }
         }
       ]
