@@ -42,7 +42,7 @@ dsh plugin --profile <profile> add /absolute/path/to/dsh-session-share
 dsh plugin --profile <profile> add dsh-session-share
 
 # 直接从 GitHub 装（钉到某个提交，npm 上还没有时用）
-dsh plugin --profile <profile> add 'git+https://github.com/<owner>/dsh-session-share.git#<sha>'
+dsh plugin --profile <profile> add 'git+https://github.com/ruiyuxuanyan/dsh-session-share.git#<sha>'
 ```
 
 在 Harness 图形界面里也可以用插件管理器安装：`install_bundle` + 上面的 spec。安装后**刷新页面**，助手回复下方那排图标（复制、分支旁边）会多出一个下载图标。
@@ -124,7 +124,7 @@ npm run index   # 生成 market/index.json（需要 --repo 指向最终仓库地
 ## 发布
 
 ```bash
-git remote add origin https://github.com/<owner>/dsh-session-share.git
+git remote add origin https://github.com/ruiyuxuanyan/dsh-session-share.git
 git branch -M main && git push -u origin main
 ```
 
@@ -132,7 +132,7 @@ git branch -M main && git push -u origin main
 `README.zh.md` 的 **Sessions & Messages** 分类里各加一行（英文行、中文行，格式与相邻条目一致）：
 
 ```markdown
-- [<owner>/dsh-session-share](https://github.com/<owner>/dsh-session-share) - Export any conversation as clean Markdown, one self-contained HTML file, or JSON from the assistant action row, with turn ranges, Markdown-rendered prose, one folded command appendix per round, secret redaction and a searchable export library.
+- [ruiyuxuanyan/dsh-session-share](https://github.com/ruiyuxuanyan/dsh-session-share) - Export any conversation as clean Markdown, one self-contained HTML file, or JSON from the assistant action row, with turn ranges, Markdown-rendered prose, one folded command appendix per round, secret redaction and a searchable export library.
 ```
 
 那份列表会被合成为 format 1 索引（`https://cdn.jsdelivr.net/npm/dsh-plugin-catalog/index.json`），

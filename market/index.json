@@ -29,8 +29,10 @@
         "en": "Export a conversation from any assistant reply as clean Markdown, one self-contained HTML file, or JSON: pick the last N turns, get tool calls folded into one line per round, a table-of-contents HTML with printing rules, Markdown-rendered prose and secret redaction, all read from the session log without touching it.",
         "zh": "在任意一条助手回复上导出这段对话：干净的 Markdown、单文件 HTML 或 JSON，可回退 N 轮，正文按 Markdown 渲染，命令与工具调用整轮折叠，密钥自动脱敏。"
       },
+      "author": "ruiyuxuanyan",
+      "homepage": "https://github.com/ruiyuxuanyan/dsh-session-share#readme",
       "repository": {
-        "url": "https://github.com/example/dsh-session-share"
+        "url": "https://github.com/ruiyuxuanyan/dsh-session-share"
       },
       "metadata": {
         "category": "export",
@@ -47,11 +49,11 @@
       "versions": [
         {
           "version": "0.2.0",
-          "publishTimestamp": 1793767767,
+          "publishTimestamp": 1793768758,
           "source": {
             "type": "git",
-            "url": "https://github.com/example/dsh-session-share",
-            "commit": "d3707cd7618b876453705832410145535e96e246"
+            "url": "https://github.com/ruiyuxuanyan/dsh-session-share",
+            "commit": "4b667e1a696555ac30614112d1bc5a7debe00fa9"
           }
         }
       ]

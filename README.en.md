@@ -41,7 +41,7 @@ dsh plugin --profile <profile> add /absolute/path/to/dsh-session-share
 dsh plugin --profile <profile> add dsh-session-share
 
 # straight from GitHub, pinned to a commit (before npm has it)
-dsh plugin --profile <profile> add 'git+https://github.com/<owner>/dsh-session-share.git#<sha>'
+dsh plugin --profile <profile> add 'git+https://github.com/ruiyuxuanyan/dsh-session-share.git#<sha>'
 ```
 
 Or install through the Harness plugin manager (`install_bundle` with the same spec). **Reload the page afterwards**: the icon row under each assistant reply (next to Copy and Branch) gains a download icon.
@@ -124,7 +124,7 @@ npm run index   # regenerate market/index.json (pass --repo for the real reposit
 ## Releasing
 
 ```bash
-git remote add origin https://github.com/<owner>/dsh-session-share.git
+git remote add origin https://github.com/ruiyuxuanyan/dsh-session-share.git
 git branch -M main && git push -u origin main
 ```
 
@@ -132,7 +132,7 @@ To be listed in the default market, add one line to [awesome-dsh-plugin](https:/
 under **Sessions & Messages**, in both `README.md` and `README.zh.md`, matching the neighbouring entries:
 
 ```markdown
-- [<owner>/dsh-session-share](https://github.com/<owner>/dsh-session-share) - Export any conversation as clean Markdown, one self-contained HTML file, or JSON from the assistant action row, with turn ranges, Markdown-rendered prose, one folded command appendix per round, secret redaction and a searchable export library.
+- [ruiyuxuanyan/dsh-session-share](https://github.com/ruiyuxuanyan/dsh-session-share) - Export any conversation as clean Markdown, one self-contained HTML file, or JSON from the assistant action row, with turn ranges, Markdown-rendered prose, one folded command appendix per round, secret redaction and a searchable export library.
 ```
 
 That list is compiled into a format 1 index (`https://cdn.jsdelivr.net/npm/dsh-plugin-catalog/index.json`) which

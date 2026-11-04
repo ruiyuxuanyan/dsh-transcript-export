@@ -37,9 +37,12 @@ if (!repository || !/^https:\/\/github\.com\/[^/]+\/[^/]+$/u.test(repository)) {
   process.exit(1)
 }
 
-const commit = argument('commit', git('rev-parse', 'HEAD'))
+// Accept a branch, tag or `HEAD` as well as the literal SHA: the point is to
+// pin whatever the release ref resolves to right now.
+const requestedCommit = argument('commit', 'HEAD')
+const commit = /^[0-9a-f]{40}$/u.test(requestedCommit) ? requestedCommit : git('rev-parse', requestedCommit)
 if (!/^[0-9a-f]{40}$/u.test(commit)) {
-  console.error(`commit 必须是 40 位小写十六进制: ${commit}`)
+  console.error(`commit 必须是 40 位小写十六进制（或一个能解析成它的 ref）: ${requestedCommit}`)
   process.exit(1)
 }
 
