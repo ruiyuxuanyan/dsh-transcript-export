@@ -46,6 +46,15 @@ if (!/^[0-9a-f]{40}$/u.test(commit)) {
   process.exit(1)
 }
 
+// A package that is on npm installs with one command; a git entry needs the
+// full `git+https://…#<sha>` spec. Publish to npm first, then leave this at the
+// default; use `--source git` only when the registry has nothing to serve.
+const source = argument('source', 'npm')
+if (source !== 'npm' && source !== 'git') {
+  console.error(`--source 只能是 npm 或 git: ${source}`)
+  process.exit(1)
+}
+
 if (repository.includes('/example/')) {
   console.warn('⚠ 仓库地址还是占位符：发布前用 --repo https://github.com/<你>/dsh-transcript-export 重新生成一次。')
 }
@@ -84,7 +93,7 @@ const index = {
         {
           version: pkg.version,
           publishTimestamp,
-          source: { type: 'git', url: repository, commit },
+          source: source === 'npm' ? { type: 'npm' } : { type: 'git', url: repository, commit },
         },
       ],
     },
