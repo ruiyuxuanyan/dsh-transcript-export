@@ -57,10 +57,10 @@ const publishTimestamp = Math.floor(
 
 const index = {
   format: 1,
-  title: { en: 'DSH Session Share', zh: 'DSH 会话导出' },
+  title: { en: 'DSH Transcript Export', zh: 'DSH 会话导出' },
   description: {
-    en: 'Community plugins maintained alongside dsh-session-share.',
-    zh: '与 dsh-session-share 一起维护的插件索引。',
+    en: 'The plugin index shipped alongside dsh-transcript-export.',
+    zh: '与 dsh-transcript-export 一起发布的插件索引。',
   },
   metadata: {
     categories: { export: { title: { en: 'Export & Share', zh: '导出与分享' } } },
@@ -68,10 +68,10 @@ const index = {
   plugins: [
     {
       name: pkg.name,
-      title: { en: 'Session Share', zh: '会话导出 / 分享' },
+      title: { en: 'Transcript Export', zh: '会话导出' },
       description: {
-        en: 'Export a conversation from any assistant reply as clean Markdown, one self-contained HTML file, or JSON: pick the last N turns, get tool calls folded into one line per round, a table-of-contents HTML with printing rules, Markdown-rendered prose and secret redaction, all read from the session log without touching it.',
-        zh: '在任意一条助手回复上导出这段对话：干净的 Markdown、单文件 HTML 或 JSON，可回退 N 轮，正文按 Markdown 渲染，命令与工具调用整轮折叠，密钥自动脱敏。',
+        en: 'Turn any reply into a document you can hand to someone: clean Markdown, one self-contained HTML file, or JSON. Take the last N turns, get tool calls folded into one appendix per round, real Markdown structure with a table of contents, and secrets redacted by default — all read from the session log, never modified.',
+        zh: '把任意一条回复变成能拿给人看的文档：干净的 Markdown、单文件 HTML 或 JSON。可以只导最近 N 轮，工具调用整轮折进一个附录，正文是真 Markdown 结构还带目录，密钥默认脱敏——全程只读会话日志，不改动它。',
       },
       author: pkg.author?.name ?? pkg.author ?? undefined,
       homepage: pkg.homepage,
