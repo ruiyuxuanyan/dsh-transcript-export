@@ -254,6 +254,45 @@ test('renderHtml is self-contained and escapes hostile text', () => {
   assert.ok(!out.includes('<script>alert(2)'), 'script escaped')
 })
 
+test('renderHtml folds a round into one closed command appendix', () => {
+  const call = (seq, turn, id) => ({
+    type: 'assistant/message',
+    seq,
+    time: 1000 + seq,
+    data: {
+      turn,
+      message: {
+        content: [
+          { type: 'text', text: `第 ${String(turn)} 轮第 ${String(seq)} 步：先跑个命令。` },
+          { type: 'tool-call', callId: id, name: 'win_bash', arguments: '{"command":"ls"}' },
+        ],
+      },
+    },
+  })
+  const { doc } = normalizeTranscript({
+    sessionId: 'fold',
+    events: [
+      { type: 'user/message', seq: 0, time: 900, data: { id: 'u1', source: { kind: 'user' }, content: [{ type: 'text', text: '第一轮' }] } },
+      call(1, 0, 'c1'),
+      call(2, 0, 'c2'),
+      call(3, 0, 'c3'),
+      { type: 'user/message', seq: 4, time: 2000, data: { id: 'u2', source: { kind: 'user' }, content: [{ type: 'text', text: '第二轮' }] } },
+      call(5, 1, 'c4'),
+    ],
+  }, { redact: false })
+
+  const html = renderHtml(doc)
+  const folds = html.match(/<details class="io">/gu) ?? []
+  assert.equal(folds.length, 2, 'one appendix per round, not one per tool call')
+  assert.match(html, /工具调用 × 3/u, 'the first round counts its three commands')
+  assert.match(html, /工具调用 × 1/u, 'the second round counts its one command')
+  assert.ok(!/<details[^>]*\sopen\b/u.test(html), 'every fold starts closed')
+
+  const opened = (html.match(/<section class="round"/gu) ?? []).length
+  const closed = (html.match(/<\/section>/gu) ?? []).length
+  assert.equal(closed, opened, 'rounds are siblings, not nested')
+})
+
 test('renderHtml gives prose real structure without trusting it', () => {
   const markdown = [
     '## 为什么会反复断开',
