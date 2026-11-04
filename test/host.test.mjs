@@ -179,6 +179,29 @@ test('the route exports, saves, lists, reads and deletes', async () => {
   }
 })
 
+test('saving the same name twice keeps both exports', async () => {
+  const dir = testDir('c')
+  await rm(dir, { recursive: true, force: true })
+  await mkdir(dir, { recursive: true })
+  try {
+    const services = {}
+    const routes = captureRoute(services)
+    services.sessionQuery = fakeQuery(EVENTS)
+    apply(fakeContext(services), { exportDir: dir })
+
+    const route = routes[0]
+    const first = await call(route, 'export', { sessionId: 's1', save: true, name: 'same.md' })
+    const second = await call(route, 'export', { sessionId: 's1', save: true, name: 'same.md' })
+    assert.equal(first.body.saved.name, 'same.md')
+    assert.equal(second.body.saved.name, 'same-2.md', 'the second export must not overwrite the first')
+
+    const listed = await call(route, 'list', {})
+    assert.deepEqual(listed.body.files.map((file) => file.name).sort(), ['same-2.md', 'same.md'])
+  } finally {
+    await rm(dir, { recursive: true, force: true })
+  }
+})
+
 test('the route refuses traversal, other origins, other methods and junk bodies', async () => {
   const dir = testDir('b')
     await rm(dir, { recursive: true, force: true })

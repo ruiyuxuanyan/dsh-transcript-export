@@ -47,11 +47,11 @@
       "versions": [
         {
           "version": "0.2.0",
-          "publishTimestamp": 1793715471,
+          "publishTimestamp": 1793715773,
           "source": {
             "type": "git",
             "url": "https://github.com/example/dsh-session-share",
-            "commit": "4e4ec3a1295fd74a3fe6f16fc557522bc5552bcc"
+            "commit": "c4ec64b25a9bb0601ea21225dc86651dc77c19f6"
           }
         }
       ]

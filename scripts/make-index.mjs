@@ -43,6 +43,10 @@ if (!/^[0-9a-f]{40}$/u.test(commit)) {
   process.exit(1)
 }
 
+if (repository.includes('/example/')) {
+  console.warn('⚠ 仓库地址还是占位符：发布前用 --repo https://github.com/<你>/dsh-session-share 重新生成一次。')
+}
+
 /** Unix seconds; the market sorts and displays this. */
 const publishTimestamp = Math.floor(
   new Date(argument('date', git('show', '-s', '--format=%cI', commit))).getTime() / 1000,

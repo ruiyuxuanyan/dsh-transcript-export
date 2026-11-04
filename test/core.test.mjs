@@ -378,3 +378,43 @@ test('small helpers behave', () => {
   assert.ok(!looksLikeTextPath('a/b.png'))
   assert.equal(toText([{ type: 'text', text: 'a' }, { type: 'text', text: 'b' }]), 'ab')
 })
+
+test('the renderers survive random markdown soup', () => {
+  // A seeded LCG keeps this reproducible: the same corpus every run, so a
+  // failure is a real regression rather than a flaky draw.
+  let seed = 20261104
+  const next = () => {
+    seed = (seed * 1103515245 + 12345) % 2147483648
+    return seed / 2147483648
+  }
+  const atoms = [
+    '#', '##', '>', '-', '*', '1.', '|', '---', '```', '`', '**', '_', '~~',
+    '[x](https://a.b)', '[](javascript:1)', '<script>', '&', '"', "'", '\\', '\\|',
+    '\t', '\n', ' ', 'a', '表格', '😀', '|---|', ':--:', '[', ']', '(', ')',
+  ]
+  for (let round = 0; round < 120; round += 1) {
+    let text = ''
+    for (let i = 0, len = 1 + Math.floor(next() * 40); i < len; i += 1) text += atoms[Math.floor(next() * atoms.length)]
+    const { doc } = normalizeTranscript({
+      sessionId: 'fuzz',
+      events: [
+        { type: 'user/message', seq: 0, time: 1, data: { id: 'u', source: { kind: 'user' }, content: [{ type: 'text', text }] } },
+        { type: 'assistant/message', seq: 1, time: 2, data: { turn: 0, message: { content: [{ type: 'text', text }, { type: 'tool-call', callId: 'c', name: 'x', arguments: text }] } } },
+        { type: 'tool/result', seq: 2, time: 3, data: { callId: 'c', result: text } },
+      ],
+    }, { redact: true })
+    const html = renderHtml(doc)
+    renderMarkdown(doc)
+    renderJson(doc)
+    assert.equal(
+      (html.match(/<details\b/gu) ?? []).length,
+      (html.match(/<\/details>/gu) ?? []).length,
+      `unbalanced details at round ${String(round)}`,
+    )
+    assert.equal(
+      (html.match(/<section\b/gu) ?? []).length,
+      (html.match(/<\/section>/gu) ?? []).length,
+      `unbalanced sections at round ${String(round)}`,
+    )
+  }
+})
