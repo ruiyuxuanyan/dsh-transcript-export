@@ -254,6 +254,48 @@ test('renderHtml is self-contained and escapes hostile text', () => {
   assert.ok(!out.includes('<script>alert(2)'), 'script escaped')
 })
 
+test('renderHtml gives prose real structure without trusting it', () => {
+  const markdown = [
+    '## 为什么会反复断开',
+    '',
+    '| 次数 | 原因 |',
+    '|---|---|',
+    '| 1 | 会话结束时进程退出 |',
+    '| 2 | `start` 没有脱离会话 |',
+    '',
+    '- 第一条',
+    '- 第二条',
+    '  - 嵌套',
+    '',
+    '> 引用一段',
+    '',
+    '**加粗** 和 `代码` 以及 [链接](https://example.com/a?b=1)。',
+    '',
+    '| x | y |',
+    '|---|---|',
+    '| <img src=x onerror=alert(1)> | <script>alert(2)</script> |',
+  ].join('\n')
+  const { doc } = normalizeTranscript({
+    sessionId: 'md',
+    events: [
+      { type: 'assistant/message', seq: 0, time: 1, data: { turn: 0, message: { content: [{ type: 'text', text: markdown }] } } },
+    ],
+  }, { redact: false })
+  const html = renderHtml(doc)
+
+  assert.match(html, /<h4>为什么会反复断开<\/h4>/, 'heading level shifted below the round')
+  assert.match(html, /<table><thead><tr><th>次数<\/th><th>原因<\/th>/, 'table has a header row')
+  assert.match(html, /<td>1<\/td><td>会话结束时进程退出<\/td>/, 'table body cells')
+  assert.match(html, /<td>2<\/td><td><code>start<\/code> 没有脱离会话<\/td>/, 'inline code inside a cell')
+  assert.match(html, /<ul><li>第一条<\/li><li>第二条<ul><li>嵌套<\/li><\/ul><\/li><\/ul>/, 'nested list')
+  assert.match(html, /<blockquote><p>引用一段<\/p><\/blockquote>/, 'blockquote')
+  assert.match(html, /<strong>加粗<\/strong>/, 'bold')
+  assert.match(html, /<a href="https:\/\/example\.com\/a\?b=1" target="_blank" rel="noopener noreferrer">链接<\/a>/, 'safe link')
+  assert.ok(!html.includes('<img src=x'), 'raw markup in a table cell stays escaped')
+  assert.ok(!html.includes('<script>alert(2)'), 'script in a table cell stays escaped')
+  assert.ok(!/<a href="javascript:/.test(html), 'no javascript: links')
+})
+
 test('highlight escapes and colours tokens', () => {
   const out = highlight('const a = "<script>" // note', 'js')
   assert.ok(out.includes('class="k"'))
